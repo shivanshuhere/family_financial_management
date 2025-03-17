@@ -1,1 +1,1 @@
-# family_finanial_management
+# family_financial_management
