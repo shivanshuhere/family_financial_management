@@ -8,7 +8,11 @@ const app = express();
 // middleware
 app.use(
     cors({
-        origin: "http://127.0.0.1:5173",
+        // origin: process.env.CLIENT_URI,
+        origin: "http://localhost:5173", // Allow requests from this origin
+        // methods: 'GET,HEAD,PUT,PATCH,POST,DELETE', // Specify allowed methods
+        // credentials: true, // Allow cookies to be sent
+        // optionsSuccessStatus: 204,
     })
 );
 
