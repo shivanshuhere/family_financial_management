@@ -3,6 +3,8 @@ import Login from './pages/Login.jsx';
 import Register from './pages/Register.jsx';
 import Dashboard from './pages/Dashboard.jsx';
 import ProtectedRoute from './components/ProtectedRoute.jsx';
+import ManageUsers from './pages/ManageUsers.jsx';
+
 function App() {
   return (
     <Router>
@@ -14,6 +16,15 @@ function App() {
             <Dashboard />
           </ProtectedRoute>
         } />
+
+        <Route
+          path="/manage-users"
+          element={
+            <ProtectedRoute allowedRoles={['Admin']}>
+              <ManageUsers />
+            </ProtectedRoute>
+          }
+        />
       </Routes>
     </Router>
   );
