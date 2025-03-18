@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import Sidebar from './Sidebar';
 import Header from './Header';
-import { AuthContext } from '../context/AuthContext';
+import { AuthContext } from '../context/auth.context.jsx';
 
 const Layout = ({ children }) => {
     const { user } = useContext(AuthContext);

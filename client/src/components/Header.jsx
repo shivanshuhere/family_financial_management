@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { AuthContext } from '../context/AuthContext';
+import { AuthContext } from '../context/auth.context.jsx';
 import { useNavigate } from 'react-router-dom';
 
 const Header = () => {
