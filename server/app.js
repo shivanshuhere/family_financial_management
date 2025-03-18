@@ -5,30 +5,27 @@ import cookieParser from "cookie-parser";
 
 const app = express();
 
-
 // middleware
-app.use(cors({
-    origin : "http://127.0.0.1:5173"
-}))
+app.use(
+    cors({
+        origin: "http://127.0.0.1:5173",
+    })
+);
 
 app.use(json());
-app.use(urlencoded());
+app.use(urlencoded({ extended: true }));
 app.use(cookieParser());
 dotenv.config({
-    path : "./.env"
-})
+    path: "./.env",
+});
 
 // user routes
-import userRoutes from "./routes/user.routes.js";
-app.use("/api/auth", userRoutes);
+import authRoutes from "./routes/auth.routes.js";
+app.use("/api/auth", authRoutes);
 
 // test routes
-app.get("/",(req, res)=>{
-    res.send("<h1>Home page</h1>")
-})
-
-app.get("/test",(req, res)=>{
-    res.send("<h1>test page</h1>")
-})
+app.get("/", (req, res) => {
+    res.send("<h1>Home page</h1>");
+});
 
 export default app;
