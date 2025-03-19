@@ -1,52 +1,46 @@
 import React, { useState, useContext } from 'react';
-import { loginUser } from '../api/auth.js';
+import { useNavigate } from "react-router-dom"
 import { AuthContext } from '../context/auth.context.jsx';
-import InputField from '../components/InputField';
-import Button from '../components/Button';
-import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const Login = () => {
     const { login } = useContext(AuthContext);
-    const navigate = useNavigate();
-    const [formData, setFormData] = useState({ email: '', password: '' });
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const navigator = useNavigate();
 
-    const handleChange = (e) => {
-        setFormData({ ...formData, [e.target.name]: e.target.value });
-    };
-
-    const handleLogin = async () => {
+    const handleLogin = async (e) => {
+        e.preventDefault();
         try {
-            const data = await loginUser(formData);
-            login(data);
-            navigate('/dashboard');
+            const response = await axios.post('http://localhost:5000/api/auth/login', { email, password });
+            login(response.data); // Store user data using context
+            alert('Login Successful');
+            navigator('/dashboard');
         } catch (error) {
-            alert(error.response?.data?.message || 'Login failed');
+            console.error('Login Failed:', error.response?.data?.message || error.message);
         }
     };
 
     return (
-        <div className="h-screen flex justify-center items-center bg-gray-100">
-            <div className="w-full max-w-md p-8 bg-white rounded-lg shadow-lg">
-                <h2 className="text-2xl font-bold mb-6">Login</h2>
-                <InputField
-                    label="Email"
+        <div className="max-w-md mx-auto mt-10">
+            <h1 className="text-2xl font-bold mb-6">Login</h1>
+            <form onSubmit={handleLogin}>
+                <input
                     type="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleChange}
+                    placeholder="Email"
+                    className="w-full p-2 mb-4 border"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                 />
-                <InputField
-                    label="Password"
+                <input
                     type="password"
-                    name="password"
-                    value={formData.password}
-                    onChange={handleChange}
+                    placeholder="Password"
+                    className="w-full p-2 mb-4 border"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
                 />
-                <Button
-                    text="Login"
-                    onClick={handleLogin}
-                />
-            </div>
+                <button className="bg-blue-500 text-white p-2 w-full" type="submit">Login</button>
+            </form>
         </div>
     );
 };
