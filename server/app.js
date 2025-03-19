@@ -35,6 +35,10 @@ app.use("/api/users", userRoutes);
 import transactionRoutes from "./routes/transactio.routes.js";
 app.use("/api/transactions", transactionRoutes);
 
+// report routes
+import reportRoutes from "./routes/report.routes.js";
+app.use("/api/reports", reportRoutes);
+
 // test routes
 app.get("/", (req, res) => {
     res.send("<h1>Home page</h1>");
