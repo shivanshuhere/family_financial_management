@@ -3,8 +3,8 @@ import {
     getAllUsers,
     updateUserRole,
     deleteUser,
-} from "../controllers/userController.js";
-import { protect, adminOnly } from "../middlewares/authMiddleware.js";
+} from "../controllers/user.controller.js";
+import { protect, adminOnly } from "../middlewares/auth.middleware.js";
 
 const router = express.Router();
 
