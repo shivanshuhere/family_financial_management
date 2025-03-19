@@ -1,8 +1,11 @@
 import axios from "axios";
 
-const API_URL = "http://localhost:5000/api/users";
+const SERVER_URL = import.meta.env.VITE_SERVER_URL;
+const API_URL = `${SERVER_URL}/api/users`;
 
 export const getUsers = async (token) => {
+    console.log("url : ", API_URL);
+
     const response = await axios.get(API_URL, {
         headers: { Authorization: `Bearer ${token}` },
     });
