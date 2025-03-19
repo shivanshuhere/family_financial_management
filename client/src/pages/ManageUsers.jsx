@@ -10,7 +10,7 @@ const ManageUsers = () => {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const data = await getUsers(user.token);
+        const data = await getUsers(user?.token);
         setUsers(data);
       } catch (error) {
         console.error('Error fetching users:', error);
@@ -19,7 +19,7 @@ const ManageUsers = () => {
       }
     };
     fetchUsers();
-  }, [user.token]);
+  }, [user?.token]);
 
   const handleRoleChange = async (id, newRole) => {
     try {
