@@ -1,72 +1,159 @@
-import React, { useEffect, useState, useContext } from 'react';
-import { getTransactions, deleteTransaction } from '../api/transaction.js';
+import React, { useState, useEffect, useContext } from 'react';
 import { AuthContext } from '../context/auth.context.jsx';
+import axios from 'axios';
 
 const Transactions = () => {
     const { user } = useContext(AuthContext);
     const [transactions, setTransactions] = useState([]);
-    const [loading, setLoading] = useState(true);
+    const [formData, setFormData] = useState({
+        type: 'Income',
+        category: '',
+        amount: '',
+        description: '',
+        date: '',
+    });
 
-    useEffect(() => {
-        const fetchTransactions = async () => {
-            try {
-                const data = await getTransactions(user.token);
-                setTransactions(data);
-            } catch (error) {
-                console.error('Error fetching transactions:', error);
-            } finally {
-                setLoading(false);
-            }
-        };
-        fetchTransactions();
-    }, [user.token]);
-
-    const handleDelete = async (id) => {
-        if (window.confirm('Are you sure you want to delete this transaction?')) {
-            try {
-                await deleteTransaction(id, user.token);
-                alert('Transaction deleted successfully');
-                setTransactions((prev) => prev.filter((t) => t._id !== id));
-            } catch (error) {
-                console.error('Error deleting transaction:', error);
-            }
+    // Fetch Transactions
+    const fetchTransactions = async () => {
+        try {
+            const response = await axios.get('http://localhost:5000/api/transactions', {
+                headers: { Authorization: `Bearer ${user.token}` },
+            });
+            setTransactions(response.data);
+        } catch (error) {
+            console.error('Error fetching transactions:', error);
         }
     };
 
-    if (loading) return <p>Loading transactions...</p>;
+    // Handle Form Input
+    const handleChange = (e) => {
+        setFormData({ ...formData, [e.target.name]: e.target.value });
+    };
+
+    // Add Transaction
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        try {
+            await axios.post('http://localhost:5000/api/transactions', formData, {
+                headers: { Authorization: `Bearer ${user.token}` },
+            });
+            alert('Transaction Added!');
+            fetchTransactions(); // Refresh transactions
+        } catch (error) {
+            console.error('Error adding transaction:', error);
+        }
+    };
+
+    // Delete Transaction
+    const handleDelete = async (id) => {
+        try {
+            await axios.delete(`http://localhost:5000/api/transactions/${id}`, {
+                headers: { Authorization: `Bearer ${user.token}` },
+            });
+            alert('Transaction Deleted!');
+            fetchTransactions();
+        } catch (error) {
+            console.error('Error deleting transaction:', error);
+        }
+    };
+
+    useEffect(() => {
+        fetchTransactions();
+    }, []);
 
     return (
-        <div>
-            <h1 className="text-3xl font-bold mb-4">Transaction Management</h1>
-            <table className="w-full bg-white shadow-md rounded-lg">
-                <thead>
-                    <tr>
-                        <th className="p-4">User</th>
-                        <th className="p-4">Amount</th>
-                        <th className="p-4">Type</th>
-                        <th className="p-4">Date</th>
-                        <th className="p-4">Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {transactions.map((t) => (
-                        <tr key={t._id} className="border-b">
-                            <td className="p-4">{t.user?.name || 'Unknown'}</td>
-                            <td className="p-4">₹{t.amount}</td>
-                            <td className="p-4">{t.type}</td>
-                            <td className="p-4">{new Date(t.date).toLocaleDateString()}</td>
-                            <td className="p-4">
-                                <button
-                                    onClick={() => handleDelete(t._id)}
-                                    className="bg-red-500 text-white px-4 py-2 rounded-lg"
-                                >
-                                    Delete
-                                </button>
-                            </td>
+        <div className="container mx-auto p-8">
+            <h1 className="text-3xl font-bold mb-6">Manage Transactions</h1>
+
+            {/* Add Transaction Form */}
+            <form onSubmit={handleSubmit} className="mb-8 bg-white p-6 shadow-md rounded-lg">
+                <h2 className="text-xl font-semibold mb-4">Add New Transaction</h2>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <select name="type" value={formData.type} onChange={handleChange} className="p-2 border rounded">
+                        <option value="Income">Income</option>
+                        <option value="Expense">Expense</option>
+                        <option value="Investment">Investment</option>
+                    </select>
+
+                    <input
+                        type="text"
+                        name="category"
+                        placeholder="Category (e.g., Salary, Rent, Food)"
+                        value={formData.category}
+                        onChange={handleChange}
+                        className="p-2 border rounded"
+                    />
+
+                    <input
+                        type="number"
+                        name="amount"
+                        placeholder="Amount (₹)"
+                        value={formData.amount}
+                        onChange={handleChange}
+                        className="p-2 border rounded"
+                    />
+
+                    <input
+                        type="date"
+                        name="date"
+                        value={formData.date}
+                        onChange={handleChange}
+                        className="p-2 border rounded"
+                    />
+
+                    <input
+                        type="text"
+                        name="description"
+                        placeholder="Description (optional)"
+                        value={formData.description}
+                        onChange={handleChange}
+                        className="p-2 border rounded"
+                    />
+                </div>
+
+                <button type="submit" className="bg-green-500 text-white mt-4 p-2 rounded">
+                    Add Transaction
+                </button>
+            </form>
+
+            {/* Transaction List */}
+            <h2 className="text-xl font-semibold mb-4">Transaction History</h2>
+            <div className="overflow-x-auto">
+                <table className="min-w-full border-collapse border border-gray-200">
+                    <thead>
+                        <tr>
+                            <th className="border p-2">Date</th>
+                            <th className="border p-2">Type</th>
+                            <th className="border p-2">Category</th>
+                            <th className="border p-2">Amount (₹)</th>
+                            <th className="border p-2">Description</th>
+                            <th className="border p-2">Actions</th>
                         </tr>
-                    ))}
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        {transactions.map((txn) => (
+                            <tr key={txn._id}>
+                                <td className="border p-2">{new Date(txn.date).toLocaleDateString()}</td>
+                                <td className={`border p-2 ${txn.type === 'Income' ? 'text-green-500' : 'text-red-500'}`}>
+                                    {txn.type}
+                                </td>
+                                <td className="border p-2">{txn.category}</td>
+                                <td className="border p-2">₹{txn.amount}</td>
+                                <td className="border p-2">{txn.description || '-'}</td>
+                                <td className="border p-2">
+                                    <button
+                                        onClick={() => handleDelete(txn._id)}
+                                        className="bg-red-500 text-white px-4 py-1 rounded"
+                                    >
+                                        Delete
+                                    </button>
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
         </div>
     );
 };

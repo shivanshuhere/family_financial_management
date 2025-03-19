@@ -1,24 +1,16 @@
 import express from "express";
 import {
-    createTransaction,
+    addTransaction,
     getTransactions,
-    updateTransaction,
     deleteTransaction,
 } from "../controllers/transaction.controller.js";
-import { protect, adminOnly } from "../middlewares/auth.middleware.js";
+import { protect } from "../middlewares/auth.middleware.js";
 
 const router = express.Router();
 
-// Create a new transaction (All authenticated users)
-router.post("/", protect, createTransaction);
-
-// Get transactions - Admin sees all, users see their own
+// Transaction Routes
+router.post("/", protect, addTransaction);
 router.get("/", protect, getTransactions);
-
-// Update a transaction (Only Admin)
-router.put("/:id", protect, adminOnly, updateTransaction);
-
-// Delete a transaction (Only Admin)
-router.delete("/:id", protect, adminOnly, deleteTransaction);
+router.delete("/:id", protect, deleteTransaction);
 
 export default router;
