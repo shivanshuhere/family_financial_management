@@ -4,6 +4,8 @@ import Register from './pages/Register.jsx';
 import Dashboard from './pages/Dashboard.jsx';
 import ProtectedRoute from './components/ProtectedRoute.jsx';
 import ManageUsers from './pages/ManageUsers.jsx';
+import Transactions from './pages/Transactions.jsx';
+
 
 function App() {
   return (
@@ -25,6 +27,16 @@ function App() {
             </ProtectedRoute>
           }
         />
+
+        <Route
+          path="/transactions"
+          element={
+            <ProtectedRoute allowedRoles={['Admin']}>
+              <Transactions />
+            </ProtectedRoute>
+          }
+        />
+
       </Routes>
     </Router>
   );
