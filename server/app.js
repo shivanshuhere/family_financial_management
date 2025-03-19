@@ -23,9 +23,13 @@ dotenv.config({
     path: "./.env",
 });
 
-// user routes
+// auth routes
 import authRoutes from "./routes/auth.routes.js";
 app.use("/api/auth", authRoutes);
+
+// user routes
+import userRoutes from "./routes/user.routes.js";
+app.use("/api/users", userRoutes);
 
 // test routes
 app.get("/", (req, res) => {
