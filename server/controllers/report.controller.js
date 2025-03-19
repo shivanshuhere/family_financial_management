@@ -1,11 +1,26 @@
 import Transaction from "../models/transaction.model.js";
 
-// Generate financial summary
+// Generate financial report with optional filters
 export const getFinancialReport = async (req, res) => {
     try {
+        const { startDate, endDate, category } = req.query;
         const userId = req.user.role === "Admin" ? {} : { user: req.user._id };
 
-        const transactions = await Transaction.find(userId);
+        // Build query with optional filters
+        const query = { ...userId };
+
+        if (startDate && endDate) {
+            query.date = {
+                $gte: new Date(startDate),
+                $lte: new Date(endDate),
+            };
+        }
+
+        if (category) {
+            query.category = category;
+        }
+
+        const transactions = await Transaction.find(query);
 
         const summary = {
             income: 0,
