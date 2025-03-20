@@ -4,16 +4,12 @@ import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 
 const app = express();
+console.log("client url : ", process.env.CLIENT_URI);
 
 // middleware
 app.use(
     cors({
-        // origin: process.env.CLIENT_URL,
-        // origin: "https://family-financial-management-1.onrender.com", // Allow requests from this origin
-        origin: "*", // only temp
-        methods: "GET,HEAD,PUT,PATCH,POST,DELETE", // Specify allowed methods
-        credentials: true, // Allow cookies to be sent
-        optionsSuccessStatus: 204,
+        origin: process.env.CLIENT_URI,
     })
 );
 

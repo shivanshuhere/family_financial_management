@@ -4,7 +4,6 @@ import dotenv from "dotenv";
 dotenv.config();
 
 const apiKey = process.env.OPENAI_API_KEY;
-console.log("apikey", apiKey);
 const openai = new OpenAI({ apiKey });
 
 export const generateInsights = async (req, res) => {
