@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { AuthContext } from '../context/auth.context.jsx';
 import axios from 'axios';
+import Loading from '../components/Loading.jsx';
 
 const Insights = () => {
     const { user } = useContext(AuthContext);
@@ -29,7 +30,7 @@ const Insights = () => {
             <h1 className="text-3xl font-bold mb-6">AI-Powered Financial Insights</h1>
             <div className="border p-4 rounded-lg bg-gray-50">
                 {insights && <p>{insights}</p>}
-                {msg && <p>{msg}</p>}
+                {msg ? <p>{msg}</p> : <Loading />}
             </div>
         </div>
     );
