@@ -25,6 +25,9 @@ const Sidebar = ({ role }) => {
                         <li className="mb-4">
                             <Link to="/transactions" className="hover:text-blue-400">Transactions</Link>
                         </li>
+                        <li className="mb-4">
+                            <Link to="/insights" className="hover:text-blue-400">Ai Insights</Link>
+                        </li>
                     </>
                 )}
             </ul>

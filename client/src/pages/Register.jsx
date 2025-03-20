@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { registerUser } from '../api/auth.js';
 import InputField from '../components/InputField';
 import Button from '../components/Button';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 const Register = () => {
     const navigate = useNavigate();
@@ -49,6 +49,9 @@ const Register = () => {
                     onChange={handleChange}
                 />
                 <Button text="Register" onClick={handleRegister} />
+                <div> Already have an account ?
+                    <Link to={'/register'} className='underline text-blue-600'> Login </Link>
+                </div>
             </div>
         </div>
     );

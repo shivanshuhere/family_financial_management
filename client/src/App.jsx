@@ -7,6 +7,7 @@ import ManageUsers from './pages/ManageUsers.jsx';
 import Transactions from './pages/Transactions.jsx';
 import Reports from './pages/Reports';
 import Layout from './components/Layout.jsx';
+import Insights from './pages/Insights.jsx';
 
 function App() {
   return (
@@ -52,7 +53,20 @@ function App() {
             </ProtectedRoute>
           }
         />
+
+        <Route
+          path="/insights"
+          element={
+            <ProtectedRoute allowedRoles={['Admin', 'Family Member']}>
+              <Layout>
+                <Insights />
+              </Layout>
+            </ProtectedRoute>
+          }
+        />
+
       </Routes>
+
     </Router>
   );
 }
