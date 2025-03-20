@@ -20,9 +20,7 @@ app.use(
 app.use(json());
 app.use(urlencoded({ extended: true }));
 app.use(cookieParser());
-dotenv.config({
-    path: "./.env",
-});
+dotenv.config();
 
 // auth routes
 import authRoutes from "./routes/auth.routes.js";
@@ -39,6 +37,10 @@ app.use("/api/transactions", transactionRoutes);
 // report routes
 import reportRoutes from "./routes/report.routes.js";
 app.use("/api/reports", reportRoutes);
+
+// insight routes
+import insightRoutes from "./routes/insight.routes.js";
+app.use("/api/insights", insightRoutes);
 
 // test routes
 app.get("/", (req, res) => {
