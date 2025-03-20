@@ -90,8 +90,8 @@ const Transactions = () => {
 
                     <select name="category" value={formData.category} onChange={handleChange} className="p-2 border rounded">
                         <option value={"Other"}>---- Select Category ----</option>
-                        {categoryArr.map((category) => (
-                            <option value={category}>{category}</option>
+                        {categoryArr.map((category, index) => (
+                            <option key={index} value={category}>{category}</option>
                         ))}
 
                     </select>
