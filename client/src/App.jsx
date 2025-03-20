@@ -6,6 +6,7 @@ import ProtectedRoute from './components/ProtectedRoute.jsx';
 import ManageUsers from './pages/ManageUsers.jsx';
 import Transactions from './pages/Transactions.jsx';
 import Reports from './pages/Reports';
+import Layout from './components/Layout.jsx';
 
 
 function App() {
@@ -24,7 +25,9 @@ function App() {
           path="/manage-users"
           element={
             <ProtectedRoute allowedRoles={['Admin']}>
-              <ManageUsers />
+              <Layout>
+                <ManageUsers />
+              </Layout>
             </ProtectedRoute>
           }
         />
@@ -33,7 +36,9 @@ function App() {
           path="/transactions"
           element={
             <ProtectedRoute allowedRoles={['Admin', 'Family Member', 'Accountant']}>
-              <Transactions />
+              <Layout>
+                <Transactions />
+              </Layout>
             </ProtectedRoute>
           }
         />
@@ -42,7 +47,9 @@ function App() {
           path="/reports"
           element={
             <ProtectedRoute allowedRoles={['Admin', 'Family Member']}>
-              <Reports />
+              <Layout>
+                <Reports />
+              </Layout>
             </ProtectedRoute>
           }
         />

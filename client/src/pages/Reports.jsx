@@ -22,7 +22,7 @@ const Reports = () => {
       if (endDate) params.endDate = endDate;
       if (category) params.category = category;
 
-      const response = await axios.get('http://localhost:5000/api/reports', {
+      const response = await axios.get(`${import.meta.env.VITE_SERVER_URL}/api/reports`, {
         headers: { Authorization: `Bearer ${user.token}` },
         params,
       });

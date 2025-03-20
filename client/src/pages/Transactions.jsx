@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { AuthContext } from '../context/auth.context.jsx';
 import axios from 'axios';
+// import { getTransactions, deleteTransaction, add } from "../api/transaction.js"
 
 const Transactions = () => {
     const { user } = useContext(AuthContext);
@@ -12,14 +13,23 @@ const Transactions = () => {
         description: '',
         date: '',
     });
-
+    const categoryArr = ["Salary",
+        "Groceries",
+        "Utilities",
+        "Education",
+        "Healthcare",
+        "Entertainment",
+        "Travel",
+        "Investment",
+        "Other",
+    ]
     // Fetch Transactions
     const fetchTransactions = async () => {
         try {
-            const response = await axios.get('http://localhost:5000/api/transactions', {
-                headers: { Authorization: `Bearer ${user.token}` },
+            const response = await axios.get(`${import.meta.env.VITE_SERVER_URL}/api/transactions`, {
+                headers: { Authorization: `Bearer ${user?.token}` },
             });
-            setTransactions(response.data);
+            setTransactions(response?.data);
         } catch (error) {
             console.error('Error fetching transactions:', error);
         }
@@ -33,8 +43,10 @@ const Transactions = () => {
     // Add Transaction
     const handleSubmit = async (e) => {
         e.preventDefault();
+        console.log("formData : ", formData);
+
         try {
-            await axios.post('http://localhost:5000/api/transactions', formData, {
+            await axios.post(`${import.meta.env.VITE_SERVER_URL}/api/transactions`, formData, {
                 headers: { Authorization: `Bearer ${user.token}` },
             });
             alert('Transaction Added!');
@@ -47,7 +59,7 @@ const Transactions = () => {
     // Delete Transaction
     const handleDelete = async (id) => {
         try {
-            await axios.delete(`http://localhost:5000/api/transactions/${id}`, {
+            await axios.delete(`${import.meta.env.VITE_SERVER_URL}/api/transactions/${id}`, {
                 headers: { Authorization: `Bearer ${user.token}` },
             });
             alert('Transaction Deleted!');
@@ -76,14 +88,13 @@ const Transactions = () => {
                         <option value="Investment">Investment</option>
                     </select>
 
-                    <input
-                        type="text"
-                        name="category"
-                        placeholder="Category (e.g., Salary, Rent, Food)"
-                        value={formData.category}
-                        onChange={handleChange}
-                        className="p-2 border rounded"
-                    />
+                    <select name="category" value={formData.category} onChange={handleChange} className="p-2 border rounded">
+                        <option value={"Other"}>---- Select Category ----</option>
+                        {categoryArr.map((category) => (
+                            <option value={category}>{category}</option>
+                        ))}
+
+                    </select>
 
                     <input
                         type="number"

@@ -14,15 +14,18 @@ const Sidebar = ({ role }) => {
                         <li className="mb-4">
                             <Link to="/manage-users" className="hover:text-blue-400">Manage Users</Link>
                         </li>
+
+                    </>
+                )}
+                {(role === 'Family Member' || role === 'Accountant') && (
+                    <>
+                        <li className="mb-4">
+                            <Link to="/reports" className="hover:text-blue-400">View Reports</Link>
+                        </li>
                         <li className="mb-4">
                             <Link to="/transactions" className="hover:text-blue-400">Transactions</Link>
                         </li>
                     </>
-                )}
-                {(role === 'Family Member' || role === 'Accountant') && (
-                    <li className="mb-4">
-                        <Link to="/reports" className="hover:text-blue-400">View Reports</Link>
-                    </li>
                 )}
             </ul>
         </div>
