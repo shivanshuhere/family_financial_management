@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
-import Sidebar from './Sidebar';
-import Header from './Header';
+import Sidebar from './Sidebar.jsx';
+import Header from './Header.jsx';
 import { AuthContext } from '../context/auth.context.jsx';
 
 const Layout = ({ children }) => {

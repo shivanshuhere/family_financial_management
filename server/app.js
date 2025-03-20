@@ -9,7 +9,7 @@ const app = express();
 app.use(
     cors({
         // origin: process.env.CLIENT_URI,
-        origin: "https://family-financial-management-1.onrender.com/", // Allow requests from this origin
+        origin: "https://family-financial-management-1.onrender.com", // Allow requests from this origin
         // methods: 'GET,HEAD,PUT,PATCH,POST,DELETE', // Specify allowed methods
         // credentials: true, // Allow cookies to be sent
         // optionsSuccessStatus: 204,

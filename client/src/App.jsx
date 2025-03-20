@@ -8,7 +8,6 @@ import Transactions from './pages/Transactions.jsx';
 import Reports from './pages/Reports';
 import Layout from './components/Layout.jsx';
 
-
 function App() {
   return (
     <Router>
@@ -53,7 +52,6 @@ function App() {
             </ProtectedRoute>
           }
         />
-
       </Routes>
     </Router>
   );
