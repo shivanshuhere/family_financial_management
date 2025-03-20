@@ -1,6 +1,7 @@
 import React, { useState, useContext } from 'react';
 import { useNavigate } from "react-router-dom"
 import { AuthContext } from '../context/auth.context.jsx';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 const Login = () => {
@@ -40,6 +41,9 @@ const Login = () => {
                     onChange={(e) => setPassword(e.target.value)}
                 />
                 <button className="bg-blue-500 text-white p-2 w-full" type="submit">Login</button>
+                <div>New User ?
+                    <Link to={'/register'}>Resgiter here</Link>
+                </div>
             </form>
         </div>
     );
