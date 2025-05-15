@@ -15,7 +15,7 @@ const Header = ({ role }) => {
     return (
 
 
-        <nav className="relative bg-blue-600 shadow sticky -top-2">
+        <nav className="z-50 bg-blue-600 shadow sticky -top-2">
             <div className="container px-6 py-4 mx-auto">
                 <div className="lg:flex lg:items-center lg:justify-between">
                     <div className="flex items-center justify-between">

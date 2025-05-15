@@ -7,12 +7,13 @@ const Layout = ({ children }) => {
     const { user } = useContext(AuthContext);
 
     return (
-        <div className=" bg-gray-800">
+        <div>
             {/* <Sidebar role={user?.role} /> */}
             <div>
                 <Header role={user?.role} />
-                <div className="p-6 bg-gray-100 flex-1 overflow-y-auto">{children}</div>
+                <div className="p-6 bg-gray-100 flex-1 overflow-y-auto min-h-screen">{children}</div>
                 <Footer />
+
             </div>
         </div>
     );
