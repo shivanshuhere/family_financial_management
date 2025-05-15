@@ -3,6 +3,7 @@ import { AuthContext } from '../context/auth.context.jsx';
 import axios from 'axios';
 import { Pie, Bar } from 'react-chartjs-2';
 import { Chart as ChartJS, ArcElement, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from 'chart.js';
+import Loading from '../components/Loading.jsx';
 
 // Register chart components
 ChartJS.register(ArcElement, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
@@ -23,7 +24,10 @@ const Reports = () => {
       if (category) params.category = category;
 
       const response = await axios.get(`${import.meta.env.VITE_SERVER_URL}/api/reports`, {
-        headers: { Authorization: `Bearer ${user.token}` },
+        headers: {
+          Authorization: `Bearer import Loading from '../components/Loading';
+${user.token}`
+        },
         params,
       });
       setReportData(response.data);
@@ -36,7 +40,7 @@ const Reports = () => {
     fetchReport();
   }, [startDate, endDate, category]);
 
-  if (!reportData) return <p>Loading Report...</p>;
+  if (!reportData) return <Loading />;
 
   // Data for Pie Chart
   const pieData = {
