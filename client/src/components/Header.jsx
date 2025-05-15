@@ -13,21 +13,18 @@ const Header = ({ role }) => {
     };
 
     return (
-        // <div className="flex justify-between items-center bg-gray-700 p-4 text-white">
-        //     <h2 className="text-xl">Welcome, {user?.name}!</h2>
-        //     <button onClick={handleLogout} className="bg-red-500 px-4 py-2 rounded">Logout</button>
-        // </div>
 
-        <nav className="relative bg-white shadow dark:bg-gray-800">
+
+        <nav className="relative bg-blue-600 shadow sticky -top-2">
             <div className="container px-6 py-4 mx-auto">
                 <div className="lg:flex lg:items-center lg:justify-between">
                     <div className="flex items-center justify-between">
-                        <Link to="/dashboard">
-                            <img className="w-auto h-6 sm:h-7" src="https://merakiui.com/images/full-logo.svg" alt="" />
+                        <Link to="/dashboard" className="flex items-center">
+                            <img className="w-auto h-6 sm:h-7" src="https://as2.ftcdn.net/v2/jpg/06/72/14/31/1000_F_672143151_v95dJEyGvKVWoXijU6LvxWtOch03cUat.webp" alt="" />  Finance Bull
                         </Link>
 
                         <div className="flex lg:hidden">
-                            <button onClick={() => setIsOpen(!isOpen)} type="button" className="text-gray-500 dark:text-gray-200 hover:text-gray-600 dark:hover:text-gray-400 focus:outline-none focus:text-gray-600 dark:focus:text-gray-400 lg:hidden" aria-label="toggle menu"
+                            <button onClick={() => setIsOpen(!isOpen)} type="button" className="text-white dark:text-white hover:text-white dark:hover:text-white focus:outline-none focus:text-white dark:focus:text-white lg:hidden" aria-label="toggle menu"
 
                             >
                                 {!isOpen ? (
@@ -43,25 +40,25 @@ const Header = ({ role }) => {
                         </div>
                     </div>
 
-                    <div className={`absolute inset-x-0 z-20 w-full px-6 py-4 transition-all duration-300 ease-in-out bg-white dark:bg-gray-800 lg:mt-0 lg:p-0 lg:top-0 lg:relative lg:bg-transparent lg:w-auto lg:opacity-100 lg:translate-x-0 lg:flex lg:items-center ${isOpen ? 'translate-x-0 opacity-100' : 'opacity-0 -translate-x-full lg:translate-x-0 lg:opacity-100'}`}>
+                    <div className={`absolute inset-x-0 z-20 w-full px-6 py-4 transition-all duration-300 ease-in-out bg-white dark:bg-blue-600 lg:mt-0 lg:p-0 lg:top-0 lg:relative lg:bg-transparent lg:w-auto lg:opacity-100 lg:translate-x-0 lg:flex lg:items-center ${isOpen ? 'translate-x-0 opacity-100' : 'opacity-0 -translate-x-full lg:translate-x-0 lg:opacity-100'}`}>
                         <div className="flex flex-col -mx-6 lg:flex-row lg:items-center lg:mx-8">
-                            <Link to="/dashboard" className="px-3 py-2 mx-3 mt-2 text-gray-700 transition-colors duration-300 transform rounded-md lg:mt-0" >Dashboard</Link>
+                            <Link to="/dashboard" className="px-3 py-2 mx-3 mt-2 text-white hover:text-slate-700 transition-colors duration-300 transform rounded-md lg:mt-0" >Dashboard</Link>
                             {role === 'Admin' && (<>
-                                <Link to="/manage-users" className="px-3 py-2 mx-3 mt-2 text-gray-700 transition-colors duration-300 transform rounded-md lg:mt-0">Manage Users</Link>
+                                <Link to="/manage-users" className="px-3 py-2 mx-3 mt-2 text-white hover:text-slate-700 transition-colors duration-300 transform rounded-md lg:mt-0">Manage Users</Link>
                             </>)}
                             {(role === 'Family Member' || role === 'Accountant') && (<>
-                                <Link to="/reports" className="px-3 py-2 mx-3 mt-2 text-gray-700 transition-colors duration-300 transform rounded-md lg:mt-0">Reports</Link>
-                                <Link to="/transactions" className="px-3 py-2 mx-3 mt-2 text-gray-700 transition-colors duration-300 transform rounded-md lg:mt-0">Transactions</Link>
-                                <Link to="/insights" className="px-3 py-2 mx-3 mt-2 text-gray-700 transition-colors duration-300 transform rounded-md lg:mt-0">Ai Insights</Link></>)}
+                                <Link to="/reports" className="px-3 py-2 mx-3 mt-2 text-white hover:text-slate-700 transition-colors duration-300 transform rounded-md lg:mt-0">Reports</Link>
+                                <Link to="/transactions" className="px-3 py-2 mx-3 mt-2 text-white hover:text-slate-700 transition-colors duration-300 transform rounded-md lg:mt-0">Transactions</Link>
+                                <Link to="/insights" className="px-3 py-2 mx-3 mt-2 text-white hover:text-slate-700 transition-colors duration-300 transform rounded-md lg:mt-0">Ai Insights</Link></>)}
                         </div>
 
                         <div className="flex items-center mt-4 lg:mt-0">
                             <button type="button" className="flex items-center focus:outline-none" aria-label="toggle profile dropdown">
-                                <div className="w-8 h-8 overflow-hidden border-2 border-gray-400 rounded-full">
+                                <div className="w-8 h-8 overflow-hidden border-2 border-blue-400 rounded-full">
                                     <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=334&q=80" className="object-cover w-full h-full" alt="avatar" />
                                 </div>
 
-                                <h3 className="mx-2 text-gray-700 dark:text-gray-200 lg:hidden">{user?.name || 'Guest'}</h3>
+                                <h3 className="mx-2 text-blue-700 dark:text-blue-200 lg:hidden">{user?.name || 'Guest'}</h3>
                             </button>
                         </div>
                     </div>
