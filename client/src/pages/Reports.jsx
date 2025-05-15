@@ -66,7 +66,7 @@ const Reports = () => {
       <h1 className="text-3xl font-bold mb-4">Financial Reports</h1>
 
       {/* Filters */}
-      <div className="mb-6 grid grid-cols-1 md:grid-cols-3 gap-4">
+      {/* <div className="mb-6 grid grid-cols-1 md:grid-cols-3 gap-4">
         <div>
           <label>Start Date:</label>
           <input type="date" className="border p-2 w-full" value={startDate} onChange={(e) => setStartDate(e.target.value)} />
@@ -86,10 +86,10 @@ const Reports = () => {
             <option value="Investment">Investment</option>
           </select>
         </div>
-      </div>
+      </div> */}
 
       {/* Summary Report */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+      < div className="grid grid-cols-1 md:grid-cols-2 gap-8" >
         <div className="bg-white p-6 shadow-lg rounded-lg">
           <h2 className="text-xl font-semibold mb-4">Summary</h2>
           <p>💰 Income: ₹{reportData.income}</p>
