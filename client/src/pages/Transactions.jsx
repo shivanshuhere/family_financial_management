@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { AuthContext } from '../context/auth.context.jsx';
 import axios from 'axios';
-// import { getTransactions, deleteTransaction, add } from "../api/transaction.js"
 
 const Transactions = () => {
     const { user } = useContext(AuthContext);
@@ -13,6 +12,8 @@ const Transactions = () => {
         description: '',
         date: '',
     });
+    const [alert, setAlert] = useState(false);
+    const [alertType, setAlertType] = useState("");
     const categoryArr = ["Salary",
         "Groceries",
         "Utilities",
@@ -44,15 +45,18 @@ const Transactions = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         console.log("formData : ", formData);
-
         try {
             await axios.post(`${import.meta.env.VITE_SERVER_URL}/api/transactions`, formData, {
                 headers: { Authorization: `Bearer ${user.token}` },
             });
-            alert('Transaction Added!');
+            // alert('Transaction Added!');
+            setAlert(true);
+            setAlertType("added !");
             fetchTransactions(); // Refresh transactions
         } catch (error) {
-            console.error('Error adding transaction:', error);
+            // console.error('Error adding transaction:', error);
+            setAlert(true);
+            setAlertType("error !");
         }
     };
 
@@ -62,10 +66,14 @@ const Transactions = () => {
             await axios.delete(`${import.meta.env.VITE_SERVER_URL}/api/transactions/${id}`, {
                 headers: { Authorization: `Bearer ${user.token}` },
             });
-            alert('Transaction Deleted!');
+            // alert('Transaction Deleted!');
+            setAlert(true);
+            setAlertType("deleted !");
             fetchTransactions();
         } catch (error) {
             console.error('Error deleting transaction:', error);
+            setAlert(true);
+            setAlertType("error !");
         }
     };
 
@@ -73,13 +81,31 @@ const Transactions = () => {
         fetchTransactions();
     }, []);
 
+    useEffect(() => {
+        setTimeout(() => {
+            setAlert(false);
+            setAlertType("");
+        }, 3000);
+    }, [alert]);
+
     return (
         <div className="container mx-auto p-8">
-            <div role="alert" className="alert alert-success">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 shrink-0 stroke-current" fill="none" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-                <span>Transaction Added!</span>
+            <div className='fixed flex justify-center items-center bottom-10 right-10 z-50'>
+                {alert && alertType !== "error !" && (
+                    <div role="alert" className="alert alert-success ">
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 shrink-0 stroke-current" fill="none" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        <span>Transaction success!</span>
+                    </div>
+                )} {alert && alertType === "error !" && (
+                    <div role="alert" className="alert alert-error">
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 shrink-0 stroke-current" fill="none" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        <span>Error! Transaction Failed</span>
+                    </div>
+                )}
             </div>
             <h1 className="text-3xl font-bold mb-6">Manage Transactions</h1>
 
