@@ -4,7 +4,6 @@ import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 
 const app = express();
-console.log("client url : ", process.env.CLIENT_URI);
 
 // middleware
 app.use(
@@ -37,10 +36,5 @@ app.use("/api/reports", reportRoutes);
 // insight routes
 import insightRoutes from "./routes/insight.routes.js";
 app.use("/api/insights", insightRoutes);
-
-// test routes
-app.get("/", (req, res) => {
-    res.send("<h1>Home page</h1>");
-});
 
 export default app;
