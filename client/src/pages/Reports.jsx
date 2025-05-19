@@ -25,8 +25,7 @@ const Reports = () => {
 
       const response = await axios.get(`${import.meta.env.VITE_SERVER_URL}/api/reports`, {
         headers: {
-          Authorization: `Bearer import Loading from '../components/Loading';
-${user.token}`
+          Authorization: `Bearer ${user.token}`
         },
         params,
       });
@@ -38,7 +37,9 @@ ${user.token}`
 
   useEffect(() => {
     fetchReport();
-  }, [startDate, endDate, category]);
+  },
+    [startDate, endDate, category]
+  );
 
   if (!reportData) return <Loading />;
 
