@@ -11,9 +11,8 @@ const Layout = ({ children }) => {
             {/* <Sidebar role={user?.role} /> */}
             <div>
                 <Header role={user?.role} />
-                <div className="p-6 bg-gray-100 flex-1 overflow-y-auto min-h-screen">{children}</div>
+                <div className="p-6 bg-gray-100 flex-1 overflow-y-auto min-h-screen text-black">{children}</div>
                 <Footer />
-
             </div>
         </div>
     );
