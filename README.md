@@ -58,8 +58,5 @@ npm start
 ### Live 🔗
 https://family-financial-management-1.onrender.com/
 ---
-🙋‍♂️ Author
-Shivanshu Koundal
-📧 try.shivanshu@gmail.com
-🔗 LinkedIn • GitHub • Portfolio
+
 
