@@ -3,6 +3,7 @@ import { AuthContext } from '../context/auth.context.jsx';
 import axios from 'axios';
 import { Pie, Bar } from 'react-chartjs-2';
 import { Chart as ChartJS, ArcElement, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from 'chart.js';
+import Loading from '../components/Loading.jsx';
 
 // Register chart components
 ChartJS.register(ArcElement, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
@@ -23,7 +24,9 @@ const Reports = () => {
       if (category) params.category = category;
 
       const response = await axios.get(`${import.meta.env.VITE_SERVER_URL}/api/reports`, {
-        headers: { Authorization: `Bearer ${user.token}` },
+        headers: {
+          Authorization: `Bearer ${user.token}`
+        },
         params,
       });
       setReportData(response.data);
@@ -34,9 +37,11 @@ const Reports = () => {
 
   useEffect(() => {
     fetchReport();
-  }, [startDate, endDate, category]);
+  },
+    [startDate, endDate, category]
+  );
 
-  if (!reportData) return <p>Loading Report...</p>;
+  if (!reportData) return <Loading />;
 
   // Data for Pie Chart
   const pieData = {
@@ -66,7 +71,7 @@ const Reports = () => {
       <h1 className="text-3xl font-bold mb-4">Financial Reports</h1>
 
       {/* Filters */}
-      <div className="mb-6 grid grid-cols-1 md:grid-cols-3 gap-4">
+      {/* <div className="mb-6 grid grid-cols-1 md:grid-cols-3 gap-4">
         <div>
           <label>Start Date:</label>
           <input type="date" className="border p-2 w-full" value={startDate} onChange={(e) => setStartDate(e.target.value)} />
@@ -86,10 +91,10 @@ const Reports = () => {
             <option value="Investment">Investment</option>
           </select>
         </div>
-      </div>
+      </div> */}
 
       {/* Summary Report */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+      < div className="grid grid-cols-1 md:grid-cols-2 gap-8" >
         <div className="bg-white p-6 shadow-lg rounded-lg">
           <h2 className="text-xl font-semibold mb-4">Summary</h2>
           <p>💰 Income: ₹{reportData.income}</p>
