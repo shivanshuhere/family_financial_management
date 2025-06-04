@@ -4,18 +4,21 @@ import { useNavigate, Link } from 'react-router-dom';
 import Loading from '../components/Loading.jsx';
 const Register = () => {
     const navigate = useNavigate();
-    const [formData, setFormData] = useState({ name: '', email: '', password: '' });
+    // const [formData, setFormData] = useState({ name: '', email: '', password: '' });
+    const [name, setName] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
     const [loading, setLoading] = useState(false)
     const [msg, setMsg] = useState('')
-    const handleChange = (e) => {
-        setFormData({ ...formData, [e.target.name]: e.target.value });
+    // const handleChange = (e) => {
+    //     setFormData({ ...formData, [e.target.name]: e.target.value });
 
-    };
+    // };
 
     const handleRegister = async () => {
         try {
             setLoading(true);
-            const data = await registerUser(formData);
+            const data = await registerUser({ name, email, password });
             setMsg(data?.response?.data?.message || "Registration Successful !")
             console.log(data);
 
@@ -82,8 +85,8 @@ const Register = () => {
                                     type="text"
                                     placeholder="Name"
                                     aria-label="Name"
-                                    value={formData.name}
-                                    onChange={handleChange}
+                                    value={name}
+                                    onChange={(e) => setName(e.target.value)}
                                 />
                             </div>
                             <div className="w-full mt-4">
@@ -92,8 +95,8 @@ const Register = () => {
                                     type="email"
                                     placeholder="Email Address"
                                     aria-label="Email Address"
-                                    value={formData.email}
-                                    onChange={handleChange}
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
                                 />
                             </div>
 
@@ -102,8 +105,8 @@ const Register = () => {
                                     className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border rounded-lg dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-blue-300" type="password"
                                     placeholder="Password"
                                     aria-label="Password"
-                                    value={formData.password}
-                                    onChange={handleChange}
+                                    value={password}
+                                    onChange={(e) => setPassword(e.target.value)}
                                 />
                             </div>
 
